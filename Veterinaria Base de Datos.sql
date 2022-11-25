@@ -1629,8 +1629,13 @@ ON CANTON.IDPROVINCIA=PROVINCIA.IDPROVINCIA;
 
 SELECT*FROM LUGARESCR;
 
+--3 drop down y 1 campo txt
+
+
 
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
 -- PROCEDIMIENTO POR SI NO LLENA ALGO QUE MUESTRE LO SIGUIENTE
 CREATE OR REPLACE PROCEDURE IMPRIMIR
 IS
@@ -1639,7 +1644,7 @@ END;
 
 EXECUTE IMPRIMIR;
 
---PROCEDIMIENTO DE VER LAS FACTURAS CON SOLO PONER EL NOMBRE DEL CLIENTE
+--PROCEDIMIENTO DE VER LAS FACTURAS CON SOLO PONER EL NOMBRE DEL CLIENTE--revisar IS
 
 CREATE OR REPLACE PROCEDURE verFacturas(cursorMemoria OUT SYS_REFCURSOR, nombre in VARCHAR2)
 AS
@@ -1649,8 +1654,30 @@ END;
 
 SET AUTOPRINT ON;
 --SE SELECIONAN LAS DOS
-VARIABLE cursorMemoria  SYS_REFCURSOR;
+VAR cursorMemoria  REFCURSOR;
 EXECUTE  verFacturas(:cursorMemoria,'Alejandro');
+PRINT cursorMemoria;
+
+
+
+/*PROCEDIMIENTO ALMACENADO DE CREAR CITAS*/--revisar revisar autoincremental
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE CrearCita
+as
+vservicio cita.servicio_cita%type;
+vfecha cita.fecha_cita %type;
+vhora cita.hora_cita%type;
+vtelefono cita.telefono_cita%type;
+vnombre cita.nombre_mascota_cita%type;
+vidempleado cita.idempleado%type;
+BEGIN
+    insert into CITA (servicio_cita,fecha_cita,hora_cita,telefono_cita,nombre_mascota_cita,idempleado)
+    values (vservicio,vfecha,vhora,vtelefono,vnombre,vidempleado);
+    DBMS_OUTPUT.PUT_LINE('Se a realizado con exito la cita');
+END;
+
+EXECUTE CrearCita('Laboratorio','20/09/21','1:00','84532324','Hunter','1');
 
 
 /*PROCEDIMIENTO ALMACENADO DE CITAS*/
@@ -1675,8 +1702,7 @@ END;
 
 EXECUTE CitaFecha('20/09/21');
 
-/*PROCEDIMIENTO ALMACCENADO DE REGISTRAR CLIENTE*/
-
+/*PROCEDIMIENTO ALMACCENADO DE REGISTRAR CLIENTE*/--revisar  
 CREATE OR REPLACE PROCEDURE IngresarCliente (vcedula CLIENTE.CEDULA%type)
 as
 vcedula CLIENTE.CEDULA%type;
@@ -1697,7 +1723,7 @@ BEGIN
   CLOSE DATOS;
 END;
 
-EXECUTE  IngresarCliente('118190580');
+EXECUTE  IngresarCliente('118190580','MARCOS','MARCOS','88889999','EMAIL@MAIL.COM');
 
 
 --Procedimiento almacenado iva de la tienda, 13%
@@ -1719,7 +1745,7 @@ SELECT IVA (2000 , 13) FROM DUAL;
 
 
 
-
+Select *from employees;
 
 
 
