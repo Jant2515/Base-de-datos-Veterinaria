@@ -1398,19 +1398,20 @@ CREATE TABLE CITA(
             FECHA_CITA DATE,
             HORA_CITA VARCHAR2(50),
             TELEFONO_CITA NUMBER,
-            NOMBRE_MASCOTA_CITA VARCHAR2(50),
-            IDEMPLEADO NUMBER, FOREIGN KEY (IDEMPLEADO) REFERENCES EMPLEADOS(IDEMPLEADO));
+            NOMBRE_MASCOTA_CITA VARCHAR2(50));
 
-INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA, IDEMPLEADO)
-          VALUES('Laboratorio', TO_DATE('2021/09/21','yyyy/mm/dd'), '12:00', 89395561, 'Hugo', 1);
-INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA, IDEMPLEADO)
-          VALUES('Grooming', TO_DATE('2021/09/30','yyyy/mm/dd'), '14:00', 81775221, 'Linda', 1);
-INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA, IDEMPLEADO)
-          VALUES('Laboratorio', TO_DATE('2022/05/23','yyyy/mm/dd'), '14:30', 65159878, 'Kira', 1);
-INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA, IDEMPLEADO)
-          VALUES('Revision', TO_DATE('2022/06/21','yyyy/mm/dd'), '11:00', 62871288, 'Roxy', 1);
-INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA, IDEMPLEADO)
-          VALUES('Laboratorio', TO_DATE('2022/08/23','yyyy/mm/dd'), '10:00', 72987722, 'Rayo', 1);
+INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA)
+          VALUES('Laboratorio', TO_DATE('2021/09/21','yyyy/mm/dd'), '12:00', 89395561, 'Hugo');
+INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA)
+          VALUES('Grooming', TO_DATE('2021/09/30','yyyy/mm/dd'), '14:00', 81775221, 'Linda');
+INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA)
+          VALUES('Laboratorio', TO_DATE('2022/05/23','yyyy/mm/dd'), '14:30', 65159878, 'Kira');
+INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA)
+          VALUES('Revision', TO_DATE('2022/06/21','yyyy/mm/dd'), '11:00', 62871288, 'Roxy');
+INSERT INTO CITA(SERVICIO_CITA, FECHA_CITA, HORA_CITA, TELEFONO_CITA, NOMBRE_MASCOTA_CITA)
+          VALUES('Laboratorio', TO_DATE('2022/08/23','yyyy/mm/dd'), '10:00', 72987722, 'Rayo');
+
+drop table cita;
 
 SELECT * FROM CITA;
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - */
@@ -1867,16 +1868,14 @@ vservicio in cita.servicio_cita%type,
 vfecha in cita.fecha_cita %type,
 vhora  in cita.hora_cita%type,
 vtelefono in cita.telefono_cita%type,
-vnombre in cita.nombre_mascota_cita%type,
-vidempleado in cita.idempleado%type)
+vnombre in cita.nombre_mascota_cita%type)
 as
 BEGIN
-    insert into CITA (servicio_cita,fecha_cita,hora_cita,telefono_cita,nombre_mascota_cita,idempleado)
-    values (vservicio,vfecha,vhora,vtelefono,vnombre,vidempleado);
-    DBMS_OUTPUT.PUT_LINE('Se a realizado con exito la cita');
+    insert into CITA (servicio_cita,fecha_cita,hora_cita,telefono_cita,nombre_mascota_cita)
+    values (vservicio,vfecha,vhora,vtelefono,vnombre);
 END;
 
-EXECUTE CrearCita('Laboratorio','20/09/21','1:00','84532324','Hunter','1');
+EXECUTE CrearCita('Grooming', '11/11/22', '12:00', '81818784', 'Ricky');
 --------------------------------------------------------------------------------------------------------------------------------------------------
 /*PROCEDIMEINTO DE EDITAR CITAS*/
 --------------------------------------------------------------------------------------------------------------------------------------------------
