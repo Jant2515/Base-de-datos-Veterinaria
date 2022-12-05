@@ -1503,7 +1503,26 @@ CREATE OR REPLACE VIEW VISTA_SERVICIOS AS
 SELECT IDSERVICIO, NOMBRE_SERV,DESCRIPCION_SERV, PRECIO_SERV
 FROM SERVICIOS;
 
-SELECT*FROM VISTA_SERVICIOS;
+SELECT * FROM VISTA_SERVICIOS;
+--------------------------------------------------------------------------------------------------------------------------------------------
+/*VISTA PARA CONOCER EL REGISTRO DE LAS FACTURAS*/
+--------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE VIEW VISTA_FACTURA AS 
+SELECT IDFACTURA, FECHA_FACT, NOMBRE_VET_FACT, TELEFONO_VET_FACT, NOMBRE_CLIENTE_FACT, 
+NOMBRE_MASCOTA_FACT, SUBTOTAL_FACT
+FROM FACTURA;
+
+SELECT*FROM VISTA_FACTURA;
+--------------------------------------------------------------------------------------------------------------------------------------------
+/*VISTA PARA CONOCER EL REGISTRO DE LOS DETALLES FACTURAS*/
+--------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE VIEW VISTA_DETALLEFACTURA AS 
+SELECT IDDETALLE_FACTURA, NUMERO_LINEA_DET, FECHA_DET, NOMBRE_VET_DET, TELEFONO_VET_DET, 
+NOMBRE_CLIENTE_DET, NOMBRE_MASCOTA_DET, DESCRIPCION_DET, SUBTOTAL_DET, DESCUENTO_DET, IVA_DET, 
+TOTAL_DET
+FROM DETALLEFACTURA;
+
+SELECT*FROM VISTA_DETALLEFACTURA;
 --------------------------------------------------------------------------------------------------------------------------------------------
 /*VISTA PARA CONOCER EL REGISTRO DE LAS MASCOTAS QUE FUERON ATENDIDAS PARA EXAMENES*/  
 --------------------------------------------------------------------------------------------------------------------------------------------
