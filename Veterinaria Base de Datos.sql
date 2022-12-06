@@ -1571,7 +1571,7 @@ SELECT *FROM MASCOTASyDUEÑOS;
 /*VISTA PARA CONOCER EL REGISTRO DE LAS FACTURAS EMITIDAS*/
 --------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE VIEW FACTURACION AS
-SELECT IDFACTURA,FECHA_FACT, NOMBRE_VET_FACT, NOMBRE_CLIENTE_FACT,NOMBRE_MASCOTA_FACT,DESCRIPCION_DET,SUBTOTAL_DET,IVA_DET,TOTAL_DET
+SELECT IDFACTURA,FECHA_FACT, NOMBRE_VET_FACT, NOMBRE_CLIENTE_FACT,NOMBRE_MASCOTA_FACT,DESCRIPCION_DET,SUBTOTAL_DET, IVA_DET,TOTAL_DET
 FROM FACTURA
 INNER JOIN DETALLEFACTURA
 ON FACTURA.IDFACTURA= DETALLEFACTURA.IDDETALLE_FACTURA;
@@ -1580,9 +1580,11 @@ SELECT*FROM FACTURACION;
 -------------------------------------------------------------------------------------------------------------------------------------------------
 /*VISTA PARA CONOCER EL REGISTRO DE LAS FACTURAS POR UN MONTO IGUAL O MAYOR A LOS 20000*/
 -------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE VIEW FACTURASALTAS AS
-SELECT IDFACTURA,FECHA_FACT,NOMBRE_VET_FACT,TELEFONO_VET_FACT,NOMBRE_CLIENTE_FACT,NOMBRE_MASCOTA_FACT,SUBTOTAL_FACT
+CREATE OR REPLACE VIEW FACTURASALTAS AS
+SELECT IDFACTURA,FECHA_FACT,NOMBRE_VET_FACT,TELEFONO_VET_FACT,NOMBRE_CLIENTE_FACT,NOMBRE_MASCOTA_FACT,SUBTOTAL_FACT, IVA_DET,TOTAL_DET
 FROM FACTURA
+INNER JOIN DETALLEFACTURA
+ON FACTURA.IDFACTURA= DETALLEFACTURA.IDDETALLE_FACTURA
 WHERE SUBTOTAL_FACT >= '20000';
 
 SELECT*FROM FACTURASALTAS;
@@ -2231,6 +2233,14 @@ BEGIN
         INSERT INTO AUDITORIA (USUARIO,ACCION,FECHA) VALUES(VUSUARIO,VACCION,VFECHA);
 END;
 --------------------------------------------------------------------------------------------------------------------------------------------------
+/*VISTA DE LA AUDITORIA*/
+--------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE VIEW AUDITORIACITA AS
+SELECT ACCION, USUARIO, FECHA
+FROM AUDITORIA;
+
+SELECT * FROM AUDITORIACITA;
+--------------------------------------------------------------------------------------------------------------------------------------------------
 /*PROCEDIMIENTO DE VER LAS FACTURAS CON SOLO PONER EL NOMBRE DEL CLIENTE*/
 --------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE verFacturas(cursorMemoria OUT SYS_REFCURSOR, nombre in VARCHAR2)
@@ -2242,4 +2252,15 @@ END;
 VAR cursorMemoria  REFCURSOR;
 EXECUTE  verFacturas(:cursorMemoria,'Alejandra Martinez');
 PRINT cursorMemoria;
+--------------------------------------------------------------------------------------------------------------------------------------------------
+/*CONSULTA DE CANTONES Y DISTRITO*/
+--------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT PROVINCIA.IDPROVINCIA, NOMBRE_PROV,NOMBRE_CANT,NOMBRE_DIST
+FROM DISTRITO
+INNER JOIN CANTON
+ON DISTRITO.IDCANTON = CANTON.IDCANTON
+INNER JOIN PROVINCIA
+ON CANTON.IDPROVINCIA = PROVINCIA.IDPROVINCIA
+WHERE CANTON.IDPROVINCIA = 2 
+AND DISTRITO.IDCANTON = 21;
 --------------------------------------------------------------------------------------------------------------------------------------------------
