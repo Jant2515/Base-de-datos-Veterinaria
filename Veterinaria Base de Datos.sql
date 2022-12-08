@@ -1494,7 +1494,7 @@ SELECT*FROM VISTA_CLIENTE;
 CREATE OR REPLACE VIEW VISTA_CITAS AS 
 SELECT IDCITA,NOMBRE_MASCOTA_CITA AS "NOMBRE MASCOTA",FECHA_CITA,HORA_CITA,TELEFONO_CITA,SERVICIO_CITA
 FROM CITA;
-
+select*from cita;
 SELECT*FROM VISTA_CITAS;
 --------------------------------------------------------------------------------------------------------------------------------------------
 /*VISTA PARA CONOCER EL REGISTRO DE LAS SERVICIOS*/
